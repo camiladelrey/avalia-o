@@ -3,71 +3,143 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🔐 Gerador de Senhas Seguro</title>
+    <title>⚡ CyberPass - Gerador Neon</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+    <!-- ========== BACKGROUND ANIMADO ========== -->
+    <div class="bg-animation">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
     <!-- ========== CONTAINER PRINCIPAL ========== -->
-    <div class="container" role="main">
+    <div class="container">
 
-        <h1>
-            <span>🔐</span> Gerador de Senhas
-        </h1>
-        <div class="subtitle">Seguro • Client-side • Crypto API</div>
-
-        <!-- DISPLAY DA SENHA -->
-        <div class="password-display">
-            <input type="text" id="senhaInput" placeholder="Clique em Gerar" readonly aria-label="Senha gerada" />
-            <button class="btn-icon" id="toggleVisibilidade" aria-label="Mostrar/ocultar senha" title="Mostrar/ocultar">👁️</button>
-            <button class="btn-icon copiar" id="copiarBtn" aria-label="Copiar senha" title="Copiar">📋</button>
-        </div>
-
-        <!-- MEDIDOR DE FORÇA -->
-        <div class="strength-wrapper">
-            <div class="strength-bar">
-                <div class="strength-fill" id="forcaBarra" style="width:0%;"></div>
+        <!-- HEADER GLITCH -->
+        <div class="header-glitch">
+            <h1 class="glitch-text" data-text="⚡ CYBERPASS">⚡ CYBERPASS</h1>
+            <div class="status-line">
+                <span class="dot online"></span>
+                <span class="status-text">Sistema Seguro • Nível 5</span>
+                <span class="dot online"></span>
             </div>
-            <span id="forcaLabel">—</span>
+            <p class="tagline">// Gerador de senhas quânticas //</p>
         </div>
 
-        <!-- CONTROLES -->
-        <div class="controles">
+        <!-- DISPLAY DA SENHA - ESTILO TERMINAL -->
+        <div class="terminal-display">
+            <div class="terminal-header">
+                <span class="dot-terminal red"></span>
+                <span class="dot-terminal yellow"></span>
+                <span class="dot-terminal green"></span>
+                <span class="terminal-title">root@cybersec:~$</span>
+            </div>
+            <div class="terminal-body">
+                <span class="prompt">$&nbsp;</span>
+                <input type="text" id="senhaInput" placeholder="[gerar senha]" readonly />
+                <div class="terminal-actions">
+                    <button class="btn-neon" id="toggleVisibilidade" title="Mostrar/ocultar">👁️</button>
+                    <button class="btn-neon copiar" id="copiarBtn" title="Copiar">📋</button>
+                </div>
+            </div>
+            <div class="terminal-footer">
+                <span id="bitsDisplay">🔒 128 bits</span>
+                <span id="timestamp"></span>
+            </div>
+        </div>
 
-            <div class="linha-dupla">
+        <!-- MEDIDOR DE FORÇA - ESTILO RADAR -->
+        <div class="strength-radar">
+            <div class="radar-container">
+                <div class="radar-ring">
+                    <div class="radar-fill" id="forcaBarra" style="--progress: 0%;"></div>
+                </div>
+                <div class="radar-labels">
+                    <span>Fraca</span>
+                    <span id="forcaLabel">—</span>
+                    <span>Forte</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTROLES - ESTILO PAINEL -->
+        <div class="painel-controles">
+            
+            <!-- SLIDER COM DISPLAY DIGITAL -->
+            <div class="control-group slider-group">
+                <div class="control-header">
+                    <label>📏 COMPRIMENTO</label>
+                    <div class="digital-display" id="tamanhoValor">16</div>
+                </div>
+                <input type="range" id="tamanhoSlider" min="8" max="64" value="16" step="1" />
+                <div class="slider-marks">
+                    <span>8</span>
+                    <span>16</span>
+                    <span>32</span>
+                    <span>48</span>
+                    <span>64</span>
+                </div>
+            </div>
+
+            <!-- CHECKBOXES ESTILO TOGGLE NEON -->
+            <div class="control-group">
+                <label>⚙️ CARACTERES</label>
+                <div class="toggle-grid">
+                    <label class="toggle-neon">
+                        <input type="checkbox" id="chkMaiusculas" checked />
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">A-Z</span>
+                    </label>
+                    <label class="toggle-neon">
+                        <input type="checkbox" id="chkMinusculas" checked />
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">a-z</span>
+                    </label>
+                    <label class="toggle-neon">
+                        <input type="checkbox" id="chkNumeros" checked />
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">0-9</span>
+                    </label>
+                    <label class="toggle-neon">
+                        <input type="checkbox" id="chkSimbolos" />
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">!@#$</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- BOTÃO GERAR - ESTILO NEON PULSANTE -->
+            <button class="btn-generate" id="gerarBtn">
+                <span class="btn-content">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">GERAR SENHA</span>
+                    <span class="btn-icon">⚡</span>
+                </span>
+                <span class="btn-glow"></span>
+            </button>
+        </div>
+
+        <!-- HISTÓRICO - ESTILO LOG -->
+        <div class="historico-log">
+            <div class="log-header">
+                <h3>📜 HISTÓRICO DE SESSÃO</h3>
                 <div>
-                    <label for="tamanhoSlider">Comprimento: <span id="tamanhoValor">16</span></label>
-                    <input type="range" id="tamanhoSlider" min="8" max="64" value="16" step="1" />
+                    <span id="contadorHist">0</span>
+                    <button id="limparHistorico" class="btn-clear-log">🗑️</button>
                 </div>
             </div>
-
-            <div>
-                <label>Incluir:</label>
-                <div class="opcoes-grid">
-                    <label><input type="checkbox" id="chkMaiusculas" checked /> A-Z</label>
-                    <label><input type="checkbox" id="chkMinusculas" checked /> a-z</label>
-                    <label><input type="checkbox" id="chkNumeros" checked /> 0-9</label>
-                    <label><input type="checkbox" id="chkSimbolos" /> !@#$%^&*</label>
-                </div>
+            <div class="log-body" id="listaHistorico">
+                <div class="log-empty">⏳ Aguardando geração...</div>
             </div>
-
-            <button class="btn-gerar" id="gerarBtn">⟳ Gerar Senha</button>
-        </div>
-
-        <!-- HISTÓRICO -->
-        <div class="historico">
-            <div class="historico-header">
-                <h3>📜 Últimas geradas</h3>
-                <button id="limparHistorico">Limpar</button>
-            </div>
-            <div id="listaHistorico"></div>
         </div>
     </div>
 
-    <!-- TOAST (feedback copiar) -->
-    <div class="toast" id="toast"></div>
+    <!-- TOAST -->
+    <div class="toast-neon" id="toast"></div>
 
-    <!-- ========== JAVASCRIPT ========== -->
     <script src="main.js"></script>
 </body>
 </html>
